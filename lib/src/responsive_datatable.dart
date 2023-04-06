@@ -337,29 +337,25 @@ class _ResponsiveDatatableState extends State<ResponsiveDatatable> {
                       .map(
                         (header) => Expanded(
                             flex: header.flex,
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                vertical: 8.0,
-                              ),
-                              child: header.sourceBuilder != null
-                                  ? header.sourceBuilder!(data[header.value], data)
-                                  : header.editable
-                                      ? TextEditableWidget(
-                                          data: data,
-                                          header: header,
-                                          textAlign: header.textAlign,
-                                          onChanged: widget.onChangedRow,
-                                          onSubmitted: widget.onSubmittedRow,
-                                          hideUnderline: widget.hideUnderline,
-                                        )
-                                      : Text(
-                                          "${data[header.value]}",
-                                          textAlign: header.textAlign,
-                                          style: widget.selecteds!.contains(data)
-                                              ? widget.selectedTextStyle
-                                              : widget.rowTextStyle,
-                                        ),
-                            )),
+                            child: header.sourceBuilder != null
+                                ? header.sourceBuilder!(data[header.value], data)
+                                : header.editable
+                                ? TextEditableWidget(
+                              data: data,
+                              header: header,
+                              textAlign: header.textAlign,
+                              onChanged: widget.onChangedRow,
+                              onSubmitted: widget.onSubmittedRow,
+                              hideUnderline: widget.hideUnderline,
+                            )
+                                : Text(
+                              "${data[header.value]}",
+                              textAlign: header.textAlign,
+                              style: widget.selecteds!.contains(data)
+                                  ? widget.selectedTextStyle
+                                  : widget.rowTextStyle,
+                            ),
+                        ),
                       )
                       .toList()
                 ],
