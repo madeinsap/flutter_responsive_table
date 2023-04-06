@@ -283,7 +283,7 @@ class _ResponsiveDatatableState extends State<ResponsiveDatatable> {
                     },
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
-                        vertical: 8.0,
+                        vertical: 16.0,
                       ),
                       child: header.headerBuilder != null
                           ? header.headerBuilder!(header.value)
@@ -390,24 +390,38 @@ class _ResponsiveDatatableState extends State<ResponsiveDatatable> {
 
   @override
   Widget build(BuildContext context) {
+    // for small screen else large screen
     return widget.responseScreenSizes.isNotEmpty && widget.responseScreenSizes.contains(context.screenSize)
-        ?
-
-        /// for small screen
-        Column(
+        ? Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              /// title and actions
-              if (widget.title != null || widget.actions != null)
+              // title and actions
+              if (widget.title != null || widget.actions != null) ...[
                 Container(
-                  padding: const EdgeInsets.all(5),
-                  decoration: BoxDecoration(border: Border(bottom: BorderSide(color: Colors.grey[300]!))),
+                  padding: const EdgeInsets.all(
+                    4.0,
+                  ),
+                  decoration: BoxDecoration(
+                    border: Border(
+                      bottom: BorderSide(
+                        color: Colors.grey[300]!,
+                      ),
+                    ),
+                  ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [if (widget.title != null) widget.title!, if (widget.actions != null) ...widget.actions!],
+                    children: [
+                      if (widget.title != null) widget.title!,
+                      if (widget.actions != null) ...widget.actions!,
+                    ],
                   ),
                 ),
+                const SizedBox(
+                  height: 16.0,
+                ),
+              ],
 
+              // mobileHeader and mobileList
               if (widget.autoHeight)
                 Column(
                   children: [
@@ -419,34 +433,27 @@ class _ResponsiveDatatableState extends State<ResponsiveDatatable> {
               if (!widget.autoHeight)
                 Expanded(
                   child: ListView(
-                    /// itemCount: source.length,
                     children: [
                       if (widget.showSelect && widget.selecteds != null) mobileHeader(),
-                      Stack(
-                        children: [
-                          /// mobileList
-                          ...mobileList(),
-                          if (widget.isLoading) const LinearProgressIndicator(),
-                        ],
-                      ),
+                      if (widget.isLoading) const LinearProgressIndicator(),
+                      ...mobileList(),
                     ],
                   ),
                 ),
 
-              /// footer
+              // footer
               if (widget.footers != null)
                 Wrap(
                   crossAxisAlignment: WrapCrossAlignment.center,
-                  children: [...widget.footers!],
+                  children: [
+                    ...widget.footers!,
+                  ],
                 )
             ],
           )
-        /**
-     * for large screen
-     */
         : Column(
             children: [
-              //title and actions
+              // title and actions
               if (widget.title != null || widget.actions != null) ...[
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -460,18 +467,16 @@ class _ResponsiveDatatableState extends State<ResponsiveDatatable> {
                 ),
               ],
 
-              /// desktopHeader
+              // desktopHeader
               if (widget.headers.isNotEmpty) desktopHeader(),
-
               if (widget.isLoading) const LinearProgressIndicator(),
 
+              // desktopList
               if (widget.autoHeight)
                 Column(
                   children: desktopList(),
                 ),
-
               if (!widget.autoHeight)
-                // desktopList
                 if (widget.source != null && widget.source!.isNotEmpty)
                   Expanded(
                     child: ListView(
@@ -479,7 +484,7 @@ class _ResponsiveDatatableState extends State<ResponsiveDatatable> {
                     ),
                   ),
 
-              //footer
+              // footer
               if (widget.footers != null)
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
