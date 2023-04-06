@@ -397,24 +397,12 @@ class _ResponsiveDatatableState extends State<ResponsiveDatatable> {
             children: [
               // title and actions
               if (widget.title != null || widget.actions != null) ...[
-                Container(
-                  padding: const EdgeInsets.all(
-                    4.0,
-                  ),
-                  decoration: BoxDecoration(
-                    border: Border(
-                      bottom: BorderSide(
-                        color: Colors.grey[300]!,
-                      ),
-                    ),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      if (widget.title != null) widget.title!,
-                      if (widget.actions != null) ...widget.actions!,
-                    ],
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    if (widget.title != null) widget.title!,
+                    if (widget.actions != null) ...widget.actions!,
+                  ],
                 ),
                 const SizedBox(
                   height: 16.0,
