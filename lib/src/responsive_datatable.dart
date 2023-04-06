@@ -247,8 +247,8 @@ class _ResponsiveDatatableState extends State<ResponsiveDatatable> {
 
     return Container(
       decoration: _headerDecoration,
-      padding: const EdgeInsets.all(
-        8.0,
+      padding: const EdgeInsets.symmetric(
+        horizontal: 8.0,
       ),
       child: Row(
         mainAxisSize: MainAxisSize.max,
@@ -267,34 +267,35 @@ class _ResponsiveDatatableState extends State<ResponsiveDatatable> {
                 (header) => Expanded(
                   flex: header.flex,
                   child: InkWell(
-                    onTap: () {
-                      if (widget.onSort != null && header.sortable) {
-                        widget.onSort!(header.value);
-                      }
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 16.0,),
-                      child: header.headerBuilder != null
-                          ? header.headerBuilder!(header.value)
-                          : Container(
-                        alignment: headerAlignSwitch(header.textAlign),
-                        child: Wrap(
-                          crossAxisAlignment: WrapCrossAlignment.center,
-                          children: [
-                            Text(
-                              header.text,
-                              textAlign: header.textAlign,
-                              style: widget.headerTextStyle,
-                            ),
-                            if (widget.sortColumn != null && widget.sortColumn == header.value)
-                              widget.sortAscending!
-                                  ? const Icon(Icons.arrow_downward, size: 15)
-                                  : const Icon(Icons.arrow_upward, size: 15)
-                          ],
+                      onTap: () {
+                        if (widget.onSort != null && header.sortable) {
+                          widget.onSort!(header.value);
+                        }
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 16.0,
                         ),
-                      ),
-                    )
-                  ),
+                        child: header.headerBuilder != null
+                            ? header.headerBuilder!(header.value)
+                            : Container(
+                                alignment: headerAlignSwitch(header.textAlign),
+                                child: Wrap(
+                                  crossAxisAlignment: WrapCrossAlignment.center,
+                                  children: [
+                                    Text(
+                                      header.text,
+                                      textAlign: header.textAlign,
+                                      style: widget.headerTextStyle,
+                                    ),
+                                    if (widget.sortColumn != null && widget.sortColumn == header.value)
+                                      widget.sortAscending!
+                                          ? const Icon(Icons.arrow_downward, size: 15)
+                                          : const Icon(Icons.arrow_upward, size: 15)
+                                  ],
+                                ),
+                              ),
+                      )),
                 ),
               )
               .toList()
@@ -317,8 +318,8 @@ class _ResponsiveDatatableState extends State<ResponsiveDatatable> {
               });
             },
             child: Container(
-              padding: const EdgeInsets.all(
-                8.0,
+              padding: const EdgeInsets.symmetric(
+                horizontal: 8.0, vertical: 4.0,
               ),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
@@ -336,25 +337,25 @@ class _ResponsiveDatatableState extends State<ResponsiveDatatable> {
                       .where((header) => header.show == true)
                       .map(
                         (header) => Expanded(
-                            flex: header.flex,
-                            child: header.sourceBuilder != null
-                                ? header.sourceBuilder!(data[header.value], data)
-                                : header.editable
-                                ? TextEditableWidget(
-                              data: data,
-                              header: header,
-                              textAlign: header.textAlign,
-                              onChanged: widget.onChangedRow,
-                              onSubmitted: widget.onSubmittedRow,
-                              hideUnderline: widget.hideUnderline,
-                            )
-                                : Text(
-                              "${data[header.value]}",
-                              textAlign: header.textAlign,
-                              style: widget.selecteds!.contains(data)
-                                  ? widget.selectedTextStyle
-                                  : widget.rowTextStyle,
-                            ),
+                          flex: header.flex,
+                          child: header.sourceBuilder != null
+                              ? header.sourceBuilder!(data[header.value], data)
+                              : header.editable
+                                  ? TextEditableWidget(
+                                      data: data,
+                                      header: header,
+                                      textAlign: header.textAlign,
+                                      onChanged: widget.onChangedRow,
+                                      onSubmitted: widget.onSubmittedRow,
+                                      hideUnderline: widget.hideUnderline,
+                                    )
+                                  : Text(
+                                      "${data[header.value]}",
+                                      textAlign: header.textAlign,
+                                      style: widget.selecteds!.contains(data)
+                                          ? widget.selectedTextStyle
+                                          : widget.rowTextStyle,
+                                    ),
                         ),
                       )
                       .toList()
@@ -375,6 +376,7 @@ class _ResponsiveDatatableState extends State<ResponsiveDatatable> {
   Widget build(BuildContext context) {
     return widget.reponseScreenSizes.isNotEmpty && widget.reponseScreenSizes.contains(context.screenSize)
         ?
+
         /// for small screen
         Column(
             mainAxisAlignment: MainAxisAlignment.start,
