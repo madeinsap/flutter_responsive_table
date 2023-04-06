@@ -273,7 +273,7 @@ class _ResponsiveDatatableState extends State<ResponsiveDatatable> {
                       }
                     },
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0,),
+                      padding: const EdgeInsets.symmetric(vertical: 16.0,),
                       child: header.headerBuilder != null
                           ? header.headerBuilder!(header.value)
                           : Container(
