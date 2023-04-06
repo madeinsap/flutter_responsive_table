@@ -2,11 +2,10 @@
 //  Generated file. Do not edit.
 //
 
+// clang-format off
+
 #include "generated_plugin_registrant.h"
 
-#include <responsive_table_plugin.h>
 
-void RegisterPlugins(flutter::PluginRegistry* registry) {
-  ResponsiveTablePluginRegisterWithRegistrar(
-      registry->GetRegistrarForPlugin("ResponsiveTablePlugin"));
+void fl_register_plugins(FlPluginRegistry* registry) {
 }
