@@ -1,5 +1,6 @@
 import 'package:adaptivex/adaptivex.dart';
 import 'package:flutter/material.dart';
+
 import 'datatable_header.dart';
 
 class ResponsiveDatatable extends StatefulWidget {
@@ -26,10 +27,10 @@ class ResponsiveDatatable extends StatefulWidget {
   final Function(Map<String, dynamic> value, DatatableHeader header)? onChangedRow;
   final Function(Map<String, dynamic> value, DatatableHeader header)? onSubmittedRow;
 
-  /// `reponseScreenSizes`
+  /// `responseScreenSizes`
   ///
   /// the ScreenSize that will responsive as list view
-  final List<ScreenSize> reponseScreenSizes;
+  final List<ScreenSize> responseScreenSizes;
 
   /// `headerDecoration`
   ///
@@ -85,7 +86,7 @@ class ResponsiveDatatable extends StatefulWidget {
     this.dropContainer,
     this.onChangedRow,
     this.onSubmittedRow,
-    this.reponseScreenSizes = const [ScreenSize.xs, ScreenSize.sm, ScreenSize.md],
+    this.responseScreenSizes = const [ScreenSize.xs, ScreenSize.sm, ScreenSize.md],
     this.headerDecoration,
     this.rowDecoration,
     this.selectedDecoration,
@@ -117,42 +118,52 @@ class _ResponsiveDatatableState extends State<ResponsiveDatatable> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Checkbox(
-          value:
-              widget.selecteds!.length == widget.source!.length && widget.source != null && widget.source!.isNotEmpty,
+          value: widget.selecteds!.length == widget.source!.length && widget.source != null && widget.source!.isNotEmpty,
           onChanged: (value) {
             if (widget.onSelectAll != null) widget.onSelectAll!(value);
           },
         ),
         PopupMenuButton(
-            child: Container(
-              padding: const EdgeInsets.all(15),
-              child: const Text("SORT BY"),
+          child: Container(
+            padding: const EdgeInsets.all(
+              16.0,
             ),
-            tooltip: "SORT BY",
-            initialValue: widget.sortColumn,
-            itemBuilder: (_) => widget.headers
-                .where((header) => header.show == true && header.sortable == true)
-                .toList()
-                .map((header) => PopupMenuItem(
-                      child: Wrap(
-                        crossAxisAlignment: WrapCrossAlignment.center,
-                        children: [
-                          Text(
-                            header.text,
-                            textAlign: header.textAlign,
-                          ),
-                          if (widget.sortColumn != null && widget.sortColumn == header.value)
-                            widget.sortAscending!
-                                ? const Icon(Icons.arrow_downward, size: 15)
-                                : const Icon(Icons.arrow_upward, size: 15)
-                        ],
+            child: const Text("SORT BY"),
+          ),
+          tooltip: "SORT BY",
+          initialValue: widget.sortColumn,
+          itemBuilder: (_) => widget.headers
+              .where((header) => header.show == true && header.sortable == true)
+              .toList()
+              .map(
+                (header) => PopupMenuItem(
+                  child: Wrap(
+                    crossAxisAlignment: WrapCrossAlignment.center,
+                    children: [
+                      Text(
+                        header.text,
+                        textAlign: header.textAlign,
                       ),
-                      value: header.value,
-                    ))
-                .toList(),
-            onSelected: (dynamic value) {
-              if (widget.onSort != null) widget.onSort!(value);
-            })
+                      if (widget.sortColumn != null && widget.sortColumn == header.value)
+                        widget.sortAscending!
+                            ? const Icon(
+                                Icons.arrow_downward,
+                                size: 18.0,
+                              )
+                            : const Icon(
+                                Icons.arrow_upward,
+                                size: 18.0,
+                              )
+                    ],
+                  ),
+                  value: header.value,
+                ),
+              )
+              .toList(),
+          onSelected: (dynamic value) {
+            if (widget.onSort != null) widget.onSort!(value);
+          },
+        )
       ],
     );
   }
@@ -176,12 +187,13 @@ class _ResponsiveDatatableState extends State<ResponsiveDatatable> {
                   const Spacer(),
                   if (widget.showSelect && widget.selecteds != null)
                     Checkbox(
-                        value: widget.selecteds!.contains(data),
-                        onChanged: (value) {
-                          if (widget.onSelect != null) {
-                            widget.onSelect!(value, data);
-                          }
-                        }),
+                      value: widget.selecteds!.contains(data),
+                      onChanged: (value) {
+                        if (widget.onSelect != null) {
+                          widget.onSelect!(value, data);
+                        }
+                      },
+                    ),
                 ],
               ),
               if (widget.commonMobileView && widget.dropContainer != null) widget.dropContainer!(data),
@@ -191,7 +203,9 @@ class _ResponsiveDatatableState extends State<ResponsiveDatatable> {
                     .toList()
                     .map(
                       (header) => Container(
-                        padding: const EdgeInsets.all(11),
+                        padding: const EdgeInsets.all(
+                          8.0,
+                        ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -200,9 +214,7 @@ class _ResponsiveDatatableState extends State<ResponsiveDatatable> {
                                 : Text(
                                     header.text,
                                     overflow: TextOverflow.clip,
-                                    style: widget.selecteds!.contains(data)
-                                        ? widget.selectedTextStyle
-                                        : widget.rowTextStyle,
+                                    style: widget.selecteds!.contains(data) ? widget.selectedTextStyle : widget.rowTextStyle,
                                   ),
                             const Spacer(),
                             header.sourceBuilder != null
@@ -218,9 +230,7 @@ class _ResponsiveDatatableState extends State<ResponsiveDatatable> {
                                       )
                                     : Text(
                                         "${data[header.value]}",
-                                        style: widget.selecteds!.contains(data)
-                                            ? widget.selectedTextStyle
-                                            : widget.rowTextStyle,
+                                        style: widget.selecteds!.contains(data) ? widget.selectedTextStyle : widget.rowTextStyle,
                                       )
                           ],
                         ),
@@ -240,7 +250,7 @@ class _ResponsiveDatatableState extends State<ResponsiveDatatable> {
           border: Border(
             bottom: BorderSide(
               color: Colors.grey[300]!,
-              width: 1,
+              width: .5,
             ),
           ),
         );
@@ -248,54 +258,60 @@ class _ResponsiveDatatableState extends State<ResponsiveDatatable> {
     return Container(
       decoration: _headerDecoration,
       padding: const EdgeInsets.symmetric(
-        horizontal: 8.0,
+        horizontal: 4.0,
       ),
       child: Row(
         mainAxisSize: MainAxisSize.max,
         children: [
           if (widget.showSelect && widget.selecteds != null)
             Checkbox(
-                value: widget.selecteds!.length == widget.source!.length &&
-                    widget.source != null &&
-                    widget.source!.isNotEmpty,
-                onChanged: (value) {
-                  if (widget.onSelectAll != null) widget.onSelectAll!(value);
-                }),
+              value: widget.selecteds!.length == widget.source!.length && widget.source != null && widget.source!.isNotEmpty,
+              onChanged: (value) {
+                if (widget.onSelectAll != null) widget.onSelectAll!(value);
+              },
+            ),
           ...widget.headers
               .where((header) => header.show == true)
               .map(
                 (header) => Expanded(
                   flex: header.flex,
                   child: InkWell(
-                      onTap: () {
-                        if (widget.onSort != null && header.sortable) {
-                          widget.onSort!(header.value);
-                        }
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 16.0,
-                        ),
-                        child: header.headerBuilder != null
-                            ? header.headerBuilder!(header.value)
-                            : Container(
-                                alignment: headerAlignSwitch(header.textAlign),
-                                child: Wrap(
-                                  crossAxisAlignment: WrapCrossAlignment.center,
-                                  children: [
-                                    Text(
-                                      header.text,
-                                      textAlign: header.textAlign,
-                                      style: widget.headerTextStyle,
-                                    ),
-                                    if (widget.sortColumn != null && widget.sortColumn == header.value)
-                                      widget.sortAscending!
-                                          ? const Icon(Icons.arrow_downward, size: 15)
-                                          : const Icon(Icons.arrow_upward, size: 15)
-                                  ],
-                                ),
+                    onTap: () {
+                      if (widget.onSort != null && header.sortable) {
+                        widget.onSort!(header.value);
+                      }
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 8.0,
+                      ),
+                      child: header.headerBuilder != null
+                          ? header.headerBuilder!(header.value)
+                          : Container(
+                              alignment: headerAlignSwitch(header.textAlign),
+                              child: Wrap(
+                                crossAxisAlignment: WrapCrossAlignment.center,
+                                children: [
+                                  Text(
+                                    header.text,
+                                    textAlign: header.textAlign,
+                                    style: widget.headerTextStyle,
+                                  ),
+                                  if (widget.sortColumn != null && widget.sortColumn == header.value)
+                                    widget.sortAscending!
+                                        ? const Icon(
+                                            Icons.arrow_downward,
+                                            size: 16.0,
+                                          )
+                                        : const Icon(
+                                            Icons.arrow_upward,
+                                            size: 16.0,
+                                          )
+                                ],
                               ),
-                      )),
+                            ),
+                    ),
+                  ),
                 ),
               )
               .toList()
@@ -308,65 +324,65 @@ class _ResponsiveDatatableState extends State<ResponsiveDatatable> {
     List<Widget> widgets = [];
     for (var index = 0; index < widget.source!.length; index++) {
       final data = widget.source![index];
-      widgets.add(Column(
-        children: [
-          InkWell(
-            onTap: () {
-              widget.onTabRow?.call(data);
-              setState(() {
-                widget.expanded![index] = !widget.expanded![index];
-              });
-            },
-            child: Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 8.0, vertical: 4.0,
-              ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  if (widget.showSelect && widget.selecteds != null)
-                    Checkbox(
-                      value: widget.selecteds!.contains(data),
-                      onChanged: (value) {
-                        if (widget.onSelect != null) {
-                          widget.onSelect!(value, data);
-                        }
-                      },
-                    ),
-                  ...widget.headers
-                      .where((header) => header.show == true)
-                      .map(
-                        (header) => Expanded(
-                          flex: header.flex,
-                          child: header.sourceBuilder != null
-                              ? header.sourceBuilder!(data[header.value], data)
-                              : header.editable
-                                  ? TextEditableWidget(
-                                      data: data,
-                                      header: header,
-                                      textAlign: header.textAlign,
-                                      onChanged: widget.onChangedRow,
-                                      onSubmitted: widget.onSubmittedRow,
-                                      hideUnderline: widget.hideUnderline,
-                                    )
-                                  : Text(
-                                      "${data[header.value]}",
-                                      textAlign: header.textAlign,
-                                      style: widget.selecteds!.contains(data)
-                                          ? widget.selectedTextStyle
-                                          : widget.rowTextStyle,
-                                    ),
-                        ),
-                      )
-                      .toList()
-                ],
+      widgets.add(
+        Column(
+          children: [
+            InkWell(
+              onTap: () {
+                widget.onTabRow?.call(data);
+                setState(() {
+                  widget.expanded![index] = !widget.expanded![index];
+                });
+              },
+              child: Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 4.0,
+                  vertical: 2.0,
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    if (widget.showSelect && widget.selecteds != null)
+                      Checkbox(
+                        value: widget.selecteds!.contains(data),
+                        onChanged: (value) {
+                          if (widget.onSelect != null) {
+                            widget.onSelect!(value, data);
+                          }
+                        },
+                      ),
+                    ...widget.headers
+                        .where((header) => header.show == true)
+                        .map(
+                          (header) => Expanded(
+                            flex: header.flex,
+                            child: header.sourceBuilder != null
+                                ? header.sourceBuilder!(data[header.value], data)
+                                : header.editable
+                                    ? TextEditableWidget(
+                                        data: data,
+                                        header: header,
+                                        textAlign: header.textAlign,
+                                        onChanged: widget.onChangedRow,
+                                        onSubmitted: widget.onSubmittedRow,
+                                        hideUnderline: widget.hideUnderline,
+                                      )
+                                    : Text(
+                                        "${data[header.value]}",
+                                        textAlign: header.textAlign,
+                                        style: widget.selecteds!.contains(data) ? widget.selectedTextStyle : widget.rowTextStyle,
+                                      ),
+                          ),
+                        )
+                        .toList()
+                  ],
+                ),
               ),
             ),
-          ),
-          if (widget.isExpandRows && widget.expanded![index] && widget.dropContainer != null)
-            widget.dropContainer!(data)
-        ],
-      ));
+            if (widget.isExpandRows && widget.expanded![index] && widget.dropContainer != null) widget.dropContainer!(data)
+          ],
+        ),
+      );
     }
 
     return widgets;
@@ -374,7 +390,7 @@ class _ResponsiveDatatableState extends State<ResponsiveDatatable> {
 
   @override
   Widget build(BuildContext context) {
-    return widget.reponseScreenSizes.isNotEmpty && widget.reponseScreenSizes.contains(context.screenSize)
+    return widget.responseScreenSizes.isNotEmpty && widget.responseScreenSizes.contains(context.screenSize)
         ?
 
         /// for small screen
@@ -406,10 +422,13 @@ class _ResponsiveDatatableState extends State<ResponsiveDatatable> {
                     /// itemCount: source.length,
                     children: [
                       if (widget.showSelect && widget.selecteds != null) mobileHeader(),
-                      if (widget.isLoading) const LinearProgressIndicator(),
-
-                      /// mobileList
-                      ...mobileList(),
+                      Stack(
+                        children: [
+                          /// mobileList
+                          ...mobileList(),
+                          if (widget.isLoading) const LinearProgressIndicator(),
+                        ],
+                      ),
                     ],
                   ),
                 ),
@@ -431,7 +450,10 @@ class _ResponsiveDatatableState extends State<ResponsiveDatatable> {
               if (widget.title != null || widget.actions != null) ...[
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [if (widget.title != null) widget.title!, if (widget.actions != null) ...widget.actions!],
+                  children: [
+                    if (widget.title != null) widget.title!,
+                    if (widget.actions != null) ...widget.actions!,
+                  ],
                 ),
                 const SizedBox(
                   height: 16.0,
@@ -443,18 +465,27 @@ class _ResponsiveDatatableState extends State<ResponsiveDatatable> {
 
               if (widget.isLoading) const LinearProgressIndicator(),
 
-              if (widget.autoHeight) Column(children: desktopList()),
+              if (widget.autoHeight)
+                Column(
+                  children: desktopList(),
+                ),
 
               if (!widget.autoHeight)
                 // desktopList
                 if (widget.source != null && widget.source!.isNotEmpty)
-                  Expanded(child: ListView(children: desktopList())),
+                  Expanded(
+                    child: ListView(
+                      children: desktopList(),
+                    ),
+                  ),
 
               //footer
               if (widget.footers != null)
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
-                  children: [...widget.footers!],
+                  children: [
+                    ...widget.footers!,
+                  ],
                 )
             ],
           );
@@ -514,7 +545,13 @@ class TextEditableWidget extends StatelessWidget {
       child: TextField(
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.all(0),
-          border: hideUnderline ? InputBorder.none : const UnderlineInputBorder(borderSide: BorderSide(width: 1)),
+          border: hideUnderline
+              ? InputBorder.none
+              : const UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    width: .5,
+                  ),
+                ),
           alignLabelWithHint: true,
         ),
         textAlign: textAlign,

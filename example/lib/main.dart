@@ -228,7 +228,7 @@ class _DataPageState extends State<DataPage> {
                     icon: Icon(Icons.add),
                     label: Text("new item"),
                   ),
-                  reponseScreenSizes: [ScreenSize.xs],
+                  responseScreenSizes: [ScreenSize.xs],
                   actions: [
                     if (_isSearch)
                       Expanded(
