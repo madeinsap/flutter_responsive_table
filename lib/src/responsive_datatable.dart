@@ -32,11 +32,6 @@ class ResponsiveDatatable extends StatefulWidget {
   /// the ScreenSize that will responsive as list view
   final List<ScreenSize> responseScreenSizes;
 
-  /// `headerDecoration`
-  ///
-  /// allow to decorate the header row
-  final BoxDecoration? headerDecoration;
-
   /// `rowDecoration`
   ///
   /// allow to decorate the data row
@@ -87,7 +82,6 @@ class ResponsiveDatatable extends StatefulWidget {
     this.onChangedRow,
     this.onSubmittedRow,
     this.responseScreenSizes = const [ScreenSize.xs, ScreenSize.sm, ScreenSize.md],
-    this.headerDecoration,
     this.rowDecoration,
     this.selectedDecoration,
     this.headerTextStyle,
@@ -245,18 +239,15 @@ class _ResponsiveDatatableState extends State<ResponsiveDatatable> {
   }
 
   Widget desktopHeader() {
-    final _headerDecoration = widget.headerDecoration ??
-        BoxDecoration(
-          border: Border(
-            bottom: BorderSide(
-              color: Colors.grey[300]!,
-              width: .5,
-            ),
-          ),
-        );
-
     return Container(
-      decoration: _headerDecoration,
+      decoration: BoxDecoration(
+        border: Border(
+          bottom: BorderSide(
+            color: Colors.grey[300]!,
+            width: .5,
+          ),
+        ),
+      ),
       padding: const EdgeInsets.symmetric(
         horizontal: 4.0,
       ),
@@ -284,6 +275,7 @@ class _ResponsiveDatatableState extends State<ResponsiveDatatable> {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                         vertical: 16.0,
+                        horizontal: 8.0,
                       ),
                       child: header.headerBuilder != null
                           ? header.headerBuilder!(header.value)
