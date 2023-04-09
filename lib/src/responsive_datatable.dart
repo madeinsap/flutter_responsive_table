@@ -331,6 +331,14 @@ class _ResponsiveDatatableState extends State<ResponsiveDatatable> {
                   horizontal: 4.0,
                   vertical: 2.0,
                 ),
+                decoration: BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(
+                      color: Colors.grey[300]!,
+                      width: .5,
+                    ),
+                  ),
+                ),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
