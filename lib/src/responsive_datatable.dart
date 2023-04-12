@@ -288,6 +288,8 @@ class _ResponsiveDatatableState extends State<ResponsiveDatatable> {
                                     header.text,
                                     textAlign: header.textAlign,
                                     style: widget.headerTextStyle,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.clip,
                                   ),
                                   if (widget.sortColumn != null && widget.sortColumn == header.value)
                                     widget.sortAscending!
