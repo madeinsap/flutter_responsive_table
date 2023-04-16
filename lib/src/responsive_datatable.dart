@@ -446,9 +446,12 @@ class _ResponsiveDatatableState extends State<ResponsiveDatatable> {
               // title and actions
               if (widget.title != null || widget.actions != null) ...[
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    if (widget.title != null) widget.title!,
+                    if (widget.title != null)
+                      Expanded(
+                        child: widget.title!,
+                      ),
                     if (widget.actions != null) ...widget.actions!,
                   ],
                 ),
