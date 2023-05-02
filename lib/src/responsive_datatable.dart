@@ -402,9 +402,6 @@ class _ResponsiveDatatableState extends State<ResponsiveDatatable> {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> desktopData = desktopList();
-    List<Widget> mobileData = desktopList();
-
     // for small screen else large screen
     return widget.responseScreenSizes.isNotEmpty && widget.responseScreenSizes.contains(context.screenSize)
         ? Column(
@@ -427,18 +424,25 @@ class _ResponsiveDatatableState extends State<ResponsiveDatatable> {
                 ),
               ],
 
-              // mobileHeader
-              if (widget.headers.isNotEmpty) desktopHeader(),
-              if (widget.isLoading) const LinearProgressIndicator(),
-
-              // mobileList
-              Expanded(
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: mobileList().length,
-                  itemBuilder: (context, index) => mobileData[index],
+              // mobileHeader and mobileList
+              if (widget.autoHeight)
+                Column(
+                  children: [
+                    if (widget.showSelect && widget.selecteds != null) mobileHeader(),
+                    if (widget.isLoading) const LinearProgressIndicator(),
+                    ...mobileList(),
+                  ],
                 ),
-              ),
+              if (!widget.autoHeight)
+                Expanded(
+                  child: ListView(
+                    children: [
+                      if (widget.showSelect && widget.selecteds != null) mobileHeader(),
+                      if (widget.isLoading) const LinearProgressIndicator(),
+                      ...mobileList(),
+                    ],
+                  ),
+                ),
 
               // footer
               if (widget.footers != null)
@@ -475,13 +479,17 @@ class _ResponsiveDatatableState extends State<ResponsiveDatatable> {
               if (widget.isLoading) const LinearProgressIndicator(),
 
               // desktopList
-              Expanded(
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: desktopData.length,
-                  itemBuilder: (context, index) => desktopData[index],
+              if (widget.autoHeight)
+                Column(
+                  children: desktopList(),
                 ),
-              ),
+              if (!widget.autoHeight)
+                if (widget.source != null && widget.source!.isNotEmpty)
+                  Expanded(
+                    child: ListView(
+                      children: desktopList(),
+                    ),
+                  ),
 
               // footer
               if (widget.footers != null)
@@ -490,7 +498,7 @@ class _ResponsiveDatatableState extends State<ResponsiveDatatable> {
                   children: [
                     ...widget.footers!,
                   ],
-                ),
+                )
             ],
           );
   }
