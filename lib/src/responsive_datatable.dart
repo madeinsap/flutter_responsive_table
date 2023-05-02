@@ -434,6 +434,7 @@ class _ResponsiveDatatableState extends State<ResponsiveDatatable> {
               // mobileList
               Expanded(
                 child: ListView.builder(
+                  shrinkWrap: true,
                   itemCount: mobileList().length,
                   itemBuilder: (context, index) => mobileData[index],
                 ),
@@ -476,6 +477,7 @@ class _ResponsiveDatatableState extends State<ResponsiveDatatable> {
               // desktopList
               Expanded(
                 child: ListView.builder(
+                  shrinkWrap: true,
                   itemCount: desktopData.length,
                   itemBuilder: (context, index) => desktopData[index],
                 ),

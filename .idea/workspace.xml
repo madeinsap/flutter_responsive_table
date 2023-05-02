@@ -10,7 +10,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="47c7a2a1-f8eb-4f8d-9877-79d356af7342" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/src/responsive_datatable.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/responsive_datatable.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -123,7 +122,14 @@
       <option name="project" value="LOCAL" />
       <updated>1681266567198</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Change to table view listview builder">
+      <created>1682999174932</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1682999174932</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -143,6 +149,7 @@
     <MESSAGE value="Minor header" />
     <MESSAGE value="remove header decoration" />
     <MESSAGE value="..." />
-    <option name="LAST_COMMIT_MESSAGE" value="..." />
+    <MESSAGE value="Change to table view listview builder" />
+    <option name="LAST_COMMIT_MESSAGE" value="Change to table view listview builder" />
   </component>
 </project>
