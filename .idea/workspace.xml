@@ -9,7 +9,8 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="47c7a2a1-f8eb-4f8d-9877-79d356af7342" name="Default Changelist" comment="remove header decoration">
+    <list default="true" id="47c7a2a1-f8eb-4f8d-9877-79d356af7342" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/src/responsive_datatable.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/responsive_datatable.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -115,7 +116,14 @@
       <option name="project" value="LOCAL" />
       <updated>1681012897992</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="...">
+      <created>1681266567198</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1681266567198</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -133,8 +141,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="redesign" />
     <MESSAGE value="Minor header" />
-    <MESSAGE value="..." />
     <MESSAGE value="remove header decoration" />
-    <option name="LAST_COMMIT_MESSAGE" value="remove header decoration" />
+    <MESSAGE value="..." />
+    <option name="LAST_COMMIT_MESSAGE" value="..." />
   </component>
 </project>

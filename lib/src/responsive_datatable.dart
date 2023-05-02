@@ -112,7 +112,8 @@ class _ResponsiveDatatableState extends State<ResponsiveDatatable> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Checkbox(
-          value: widget.selecteds!.length == widget.source!.length && widget.source != null && widget.source!.isNotEmpty,
+          value:
+              widget.selecteds!.length == widget.source!.length && widget.source != null && widget.source!.isNotEmpty,
           onChanged: (value) {
             if (widget.onSelectAll != null) widget.onSelectAll!(value);
           },
@@ -208,7 +209,9 @@ class _ResponsiveDatatableState extends State<ResponsiveDatatable> {
                                 : Text(
                                     header.text,
                                     overflow: TextOverflow.clip,
-                                    style: widget.selecteds!.contains(data) ? widget.selectedTextStyle : widget.rowTextStyle,
+                                    style: widget.selecteds!.contains(data)
+                                        ? widget.selectedTextStyle
+                                        : widget.rowTextStyle,
                                   ),
                             const Spacer(),
                             header.sourceBuilder != null
@@ -224,7 +227,9 @@ class _ResponsiveDatatableState extends State<ResponsiveDatatable> {
                                       )
                                     : Text(
                                         "${data[header.value]}",
-                                        style: widget.selecteds!.contains(data) ? widget.selectedTextStyle : widget.rowTextStyle,
+                                        style: widget.selecteds!.contains(data)
+                                            ? widget.selectedTextStyle
+                                            : widget.rowTextStyle,
                                       )
                           ],
                         ),
@@ -256,7 +261,9 @@ class _ResponsiveDatatableState extends State<ResponsiveDatatable> {
         children: [
           if (widget.showSelect && widget.selecteds != null)
             Checkbox(
-              value: widget.selecteds!.length == widget.source!.length && widget.source != null && widget.source!.isNotEmpty,
+              value: widget.selecteds!.length == widget.source!.length &&
+                  widget.source != null &&
+                  widget.source!.isNotEmpty,
               onChanged: (value) {
                 if (widget.onSelectAll != null) widget.onSelectAll!(value);
               },
@@ -372,7 +379,9 @@ class _ResponsiveDatatableState extends State<ResponsiveDatatable> {
                                     : Text(
                                         "${data[header.value]}",
                                         textAlign: header.textAlign,
-                                        style: widget.selecteds!.contains(data) ? widget.selectedTextStyle : widget.rowTextStyle,
+                                        style: widget.selecteds!.contains(data)
+                                            ? widget.selectedTextStyle
+                                            : widget.rowTextStyle,
                                       ),
                           ),
                         )
@@ -381,7 +390,8 @@ class _ResponsiveDatatableState extends State<ResponsiveDatatable> {
                 ),
               ),
             ),
-            if (widget.isExpandRows && widget.expanded![index] && widget.dropContainer != null) widget.dropContainer!(data)
+            if (widget.isExpandRows && widget.expanded![index] && widget.dropContainer != null)
+              widget.dropContainer!(data)
           ],
         ),
       );
@@ -392,6 +402,9 @@ class _ResponsiveDatatableState extends State<ResponsiveDatatable> {
 
   @override
   Widget build(BuildContext context) {
+    List<Widget> desktopData = desktopList();
+    List<Widget> mobileData = desktopList();
+
     // for small screen else large screen
     return widget.responseScreenSizes.isNotEmpty && widget.responseScreenSizes.contains(context.screenSize)
         ? Column(
@@ -400,9 +413,12 @@ class _ResponsiveDatatableState extends State<ResponsiveDatatable> {
               // title and actions
               if (widget.title != null || widget.actions != null) ...[
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    if (widget.title != null) widget.title!,
+                    if (widget.title != null)
+                      Expanded(
+                        child: widget.title!,
+                      ),
                     if (widget.actions != null) ...widget.actions!,
                   ],
                 ),
@@ -411,25 +427,17 @@ class _ResponsiveDatatableState extends State<ResponsiveDatatable> {
                 ),
               ],
 
-              // mobileHeader and mobileList
-              if (widget.autoHeight)
-                Column(
-                  children: [
-                    if (widget.showSelect && widget.selecteds != null) mobileHeader(),
-                    if (widget.isLoading) const LinearProgressIndicator(),
-                    ...mobileList(),
-                  ],
+              // mobileHeader
+              if (widget.headers.isNotEmpty) desktopHeader(),
+              if (widget.isLoading) const LinearProgressIndicator(),
+
+              // mobileList
+              Expanded(
+                child: ListView.builder(
+                  itemCount: mobileList().length,
+                  itemBuilder: (context, index) => mobileData[index],
                 ),
-              if (!widget.autoHeight)
-                Expanded(
-                  child: ListView(
-                    children: [
-                      if (widget.showSelect && widget.selecteds != null) mobileHeader(),
-                      if (widget.isLoading) const LinearProgressIndicator(),
-                      ...mobileList(),
-                    ],
-                  ),
-                ),
+              ),
 
               // footer
               if (widget.footers != null)
@@ -442,6 +450,7 @@ class _ResponsiveDatatableState extends State<ResponsiveDatatable> {
             ],
           )
         : Column(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               // title and actions
               if (widget.title != null || widget.actions != null) ...[
@@ -465,17 +474,12 @@ class _ResponsiveDatatableState extends State<ResponsiveDatatable> {
               if (widget.isLoading) const LinearProgressIndicator(),
 
               // desktopList
-              if (widget.autoHeight)
-                Column(
-                  children: desktopList(),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: desktopData.length,
+                  itemBuilder: (context, index) => desktopData[index],
                 ),
-              if (!widget.autoHeight)
-                if (widget.source != null && widget.source!.isNotEmpty)
-                  Expanded(
-                    child: ListView(
-                      children: desktopList(),
-                    ),
-                  ),
+              ),
 
               // footer
               if (widget.footers != null)
@@ -484,7 +488,7 @@ class _ResponsiveDatatableState extends State<ResponsiveDatatable> {
                   children: [
                     ...widget.footers!,
                   ],
-                )
+                ),
             ],
           );
   }
